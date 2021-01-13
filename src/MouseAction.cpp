@@ -1,5 +1,5 @@
 #include "MouseAction.h"
-
+#include <iostream>
 
 
 Zoom::Zoom(sf::RenderWindow* win)
@@ -53,7 +53,7 @@ void Zoom::Execute(sf::Event& event)
 
 void Zoom::doZoom()
 {
-
+    std::cout << "did zoom function" << std::endl;
 
 }
 

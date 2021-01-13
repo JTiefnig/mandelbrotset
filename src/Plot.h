@@ -45,12 +45,10 @@ private:
 
     sf::Color ColorGradient(int val, int base);
 
-    sf::Vector2f ;
-    sf::Vector2f Y_Scale;
+    sf::Vector2f min;
+    sf::Vector2f max;
 
     sf::Texture texture;
-
-    
 
     unsigned int x, y;
     sf::Sprite sprite;

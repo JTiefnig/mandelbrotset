@@ -45,7 +45,8 @@ void Plot::render()
         for(int y=0; y<sy; y++)
         {
             
-            
+            float fx = ((x)*(1-(-2)))/(float)sx - 2.0;
+            float fy = ((y)*(1-(-1)))/(float)sy - 1.0;
 
             std::complex<float> c(fx, fy);
             std::complex<float> z;
@@ -104,12 +105,12 @@ sf::Color Plot::ColorGradient(int val, int base) // base is reference value
 sf::Vector2f Plot::transform(sf::Vector2u position)
 {
 
-    float rangeX = ;
-    float ragneY = ;
-
-
-    float fx = ((3.0f*position.x/size_x))-2.0f;
-    float fy = ((2.0f*position.y/size_y))-1.0f;
+//    float rangeX = ;
+//    float ragneY = ;
+//
+//
+//    float fx = ((3.0f*position.x/size_x))-2.0f;
+//    float fy = ((2.0f*position.y/size_y))-1.0f;
 
     return sf::Vector2f();
 }
