@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-Zoom::Zoom(sf::RenderWindow* win)
-    :window(win)
+Zoom::Zoom(sf::RenderWindow* win, Plot* pl)
+    :window(win), plot(pl)
 {
     rect.setOutlineColor(sf::Color::Red);
     rect.setOutlineThickness(2);
@@ -18,6 +18,7 @@ void Zoom::Execute(sf::Event& event)
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             auto pos = sf::Mouse::getPosition(*window);
+            min = pos;
             rect.setPosition(sf::Vector2f(pos));
             state = STATE::ONZOOM;
         }
@@ -26,7 +27,9 @@ void Zoom::Execute(sf::Event& event)
 
         if (event.type == sf::Event::MouseMoved)
 			{
-                auto size = sf::Vector2f(sf::Mouse::getPosition(*window)) - rect.getPosition();
+                max = sf::Mouse::getPosition(*window);
+                auto size = sf::Vector2f(max) - rect.getPosition();
+                
                 rect.setSize(size);
 			}
 			else if (event.type == sf::Event::MouseButtonReleased)
@@ -53,8 +56,12 @@ void Zoom::Execute(sf::Event& event)
 
 void Zoom::doZoom()
 {
-    std::cout << "did zoom function" << std::endl;
+    auto fmin = plot->transform(sf::Vector2u(min));
+    auto fmax = plot->transform(sf::Vector2u(max));
+    
+    plot->SetArea(fmin.x, fmin.y, fmax.x, fmax.y);
 
+    plot->render();
 }
 
 void Zoom::draw(sf::RenderTarget& target, sf::RenderStates states) const

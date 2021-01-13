@@ -32,7 +32,6 @@ void Plot::putpixel(unsigned int x, unsigned int y, const sf::Color& col)
 
 
 
-
 void Plot::render()  
 {
     int maxiter=20;
@@ -45,10 +44,9 @@ void Plot::render()
         for(int y=0; y<sy; y++)
         {
             
-            float fx = ((x)*(1-(-2)))/(float)sx - 2.0;
-            float fy = ((y)*(1-(-1)))/(float)sy - 1.0;
+            auto coo = transform(sf::Vector2u(x, y));
 
-            std::complex<float> c(fx, fy);
+            std::complex<float> c(coo.x, coo.y);
             std::complex<float> z;
 
 
@@ -69,11 +67,6 @@ void Plot::render()
             putpixel(x, y, ColorGradient(n, maxiter));
         }
     }
-        
-
-
-    
-    
 
     texture.update(pixelMatrix.data());
 
@@ -101,23 +94,47 @@ sf::Color Plot::ColorGradient(int val, int base) // base is reference value
 
 
 
-
+// Transforms a point on the screen to the set coordinate system
 sf::Vector2f Plot::transform(sf::Vector2u position)
 {
+    float rangeX = max.x - min.x;
+    float rangeY = max.y - min.y;
 
-//    float rangeX = ;
-//    float ragneY = ;
-//
-//
-//    float fx = ((3.0f*position.x/size_x))-2.0f;
-//    float fy = ((2.0f*position.y/size_y))-1.0f;
+    float fx = ((position.x)*rangeX)/size_x + min.x;
+    float fy = (((size_y-position.y))*rangeY)/size_y + min.y;
 
-    return sf::Vector2f();
+    return sf::Vector2f(fx, fy);
 }
 
 
 sf::Vector2u Plot::inverseTransform(sf::Vector2f coordinates)
 {
+    // todo
+
+}
+
+void Plot::SetArea(float x1, float y1, float x2, float y2)
+{
+    if(x1 < x2)
+    {
+        min.x = x1;
+        max.x = x2;
+    }else
+    {
+        min.x = x2;
+        max.x = x1;
+    }
+    
+    if(y1 < y2)
+    {
+        min.y = y1;
+        max.y = y2;
+    }else
+    {
+        min.y = y2;
+        max.y = y1;
+    }
+    
 
 
 }

@@ -29,9 +29,11 @@ void Application::run()
     sf::CircleShape shape(10);
     shape.setFillColor(sf::Color(100, 250, 250));
 
-    Zoom za(&window);
+    
 
     Plot mandelbrot(window.getSize());
+
+    Zoom za(&window, &mandelbrot);
 
     mandelbrot.render();
 

@@ -18,7 +18,12 @@ public:
 
     Plot(sf::Vector2u size)
         :Plot(size.x, size.y)
-    {}
+    {
+        min.x = -2;
+        min.y = -1;
+        max.x = 1;
+        max.y = 1;
+    }
 
     Plot(unsigned int x, unsigned int y)
         :size_x(x), size_y(y)
@@ -32,6 +37,8 @@ public:
 
     sf::Vector2f transform(sf::Vector2u position);
     sf::Vector2u inverseTransform(sf::Vector2f coordinates);
+
+    void SetArea(float x1, float y1, float x2, float y2);
 
 private:
 

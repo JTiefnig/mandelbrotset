@@ -18,10 +18,11 @@ class Zoom :public sf::Drawable, public MouseAction
 {
 public:
 
-    Zoom(sf::RenderWindow* win);
+    Zoom(sf::RenderWindow* win, Plot* pl);
 
     virtual void Execute(sf::Event& event);
 
+    Plot* plot;
 
     void doZoom();
 
@@ -40,6 +41,8 @@ private:
 
     STATE state = STATE::NONE;
 
+    sf::Vector2i min;
+    sf::Vector2i max;
 
     sf::RectangleShape rect;
 
