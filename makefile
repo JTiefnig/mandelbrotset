@@ -1,17 +1,18 @@
 CXX=g++
-CXXFLAGS=-g -Wall -Wextra -Werror -w
+CXXFLAGS=-g
 
 SRC=./src
 OBJ=obj
 INCL=C:\SFML-2.5.1\include
 SRCS=$(wildcard $(SRC)/*.cpp)
-OBJS=$(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
+OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 
 HDRS += $(foreach includedir, $(INCL), $(wildcard $(includedir)/*.h))
 
 
 
 LIB_DIR=C:\SFML-2.5.1\lib
+
 LIBS=sfml-graphics sfml-window sfml-system
 
 DEBUGLIBS=sfml-graphics-d sfml-window-d sfml-system-d
@@ -42,7 +43,7 @@ $(BIN): $(OBJS) $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
 
 $(OBJ)/%.o: $(SRC)/%.cpp $(OBJ) $(HDRS)
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -o $@ -c $<
 
 $(OBJ):
 	mkdir -p $@

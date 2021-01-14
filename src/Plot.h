@@ -50,7 +50,7 @@ private:
 
     void putpixel(unsigned int x, unsigned int y, const sf::Color& col);
 
-    sf::Color ColorGradient(int val, int base);
+    sf::Color ColorGradient(float val, float base);
 
     sf::Vector2f min;
     sf::Vector2f max;

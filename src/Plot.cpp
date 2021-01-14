@@ -34,37 +34,46 @@ void Plot::putpixel(unsigned int x, unsigned int y, const sf::Color& col)
 
 void Plot::render()  
 {
-    int maxiter=20;
+    int maxiter=25;
 
     int sx = (int)size_x;
     int sy = (int)size_y;
 
-    for(int x=0; x<sx; x++)
+    float scaleFactor = min.x * min.x + min.y * min.y;
+
+
+    // Optimized Escape Algorithm from wiki
+
+    for(int px=0; px<sx; px++)
     {
-        for(int y=0; y<sy; y++)
+        for(int py=0; py<sy; py++)
         {
-            
-            auto coo = transform(sf::Vector2u(x, y));
-
-            std::complex<float> c(coo.x, coo.y);
-            std::complex<float> z;
-
 
             int n =maxiter;
-            
+            float squareDist = 0;
+
+            sf::Vector2f coov= transform(sf::Vector2u(px, py));
+
+            float x0 = coov.x;
+            float y0 = coov.y;
+
+            float x=0;
+            float y=0;
+            float x2 =0;
+            float y2 =0;
+
             for(; n>0; n--)
             {
+                y = 2*x*y + y0;
+                x = x2 - y2 + x0;
+                x2 = x*x;
+                y2 = y*y;
 
-                z = std::pow(z,2) + c;
-
-                if(std::abs(z) > 4)
-                {
+                if( (x2 + y2) > 4)
                     break;
-                }
-
             }
         
-            putpixel(x, y, ColorGradient(n, maxiter));
+            putpixel(px, py, ColorGradient(n, maxiter));
         }
     }
 
@@ -76,7 +85,7 @@ void Plot::render()
 }
 
 
-sf::Color Plot::ColorGradient(int val, int base) // base is reference value
+sf::Color Plot::ColorGradient(float val, float base) // base is reference value
 {
     if(val<0 || base < 0 || val > base)
         return sf::Color::Black;
