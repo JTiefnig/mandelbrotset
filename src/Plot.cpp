@@ -42,7 +42,7 @@ void Plot::render()
     float scaleFactor = min.x * min.x + min.y * min.y;
 
 
-    // Optimized Escape Algorithm from wiki
+    // Optimized Escape Algorithm from wikipedia
 
     for(int px=0; px<sx; px++)
     {
@@ -143,7 +143,4 @@ void Plot::SetArea(float x1, float y1, float x2, float y2)
         min.y = y2;
         max.y = y1;
     }
-    
-
-
 }

@@ -5,9 +5,17 @@
 #include <SFML/Graphics.hpp>
 
 
+template<typename T>
+struct Rect
+{
+    T X1, X2, Y1, Y2;
 
+    Rect(T x1, T y1, T x2, T y2)
+    :X1(x1), X2(x2), Y1(y1), Y2(y2)
+    {}
 
-
+    Rect(){}
+};
 
 
 // plot of the Mandelbrot set...
